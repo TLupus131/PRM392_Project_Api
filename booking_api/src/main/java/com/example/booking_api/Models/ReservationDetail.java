@@ -27,4 +27,9 @@ public class ReservationDetail implements Serializable {
     @JoinColumn(name = "reservation_id", referencedColumnName = "id")
     @JsonIgnoreProperties("reservationDetail")
     private Reservation reservation;
+
+    public ReservationDetail(Double totalPrice, Reservation reservation) {
+        this.totalPrice = totalPrice;
+        this.reservation = reservation;
+    }
 }

@@ -21,4 +21,8 @@ public class PropertyService {
     public List<Property> getRequestProperty(String location, Date checkInDate, Date checkOutDate, int room, int adult, int children, boolean petAllow){
         return propertyRepository.getPropertiesByRequest(location, checkInDate, checkOutDate, room, adult, children, petAllow);
     }
+
+    public Property verifyProperty(int propertyId, Date checkInDate, Date checkOutDate, int room, int adult, int children, boolean petAllow){
+        return propertyRepository.verifyProperty(propertyId, checkInDate, checkOutDate, room, adult, children, petAllow);
+    }
 }

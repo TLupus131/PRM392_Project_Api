@@ -1,5 +1,6 @@
 package com.example.booking_api.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,5 +25,6 @@ public class PropertyImg implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "property_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("propertyImgs")
     private Property property;
 }

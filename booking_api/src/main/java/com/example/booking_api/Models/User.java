@@ -17,6 +17,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"reservations", "comments"})
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +39,7 @@ public class User implements Serializable {
     private String nationality;
 
     @Column(name = "phone", nullable = true)
-    private int phone;
+    private String phone;
 
     @Column(name = "password", nullable = false)
     private String password;
@@ -61,5 +62,8 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("user")
     private List<Reservation> reservations;
-}
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("user")
+    private List<Comment> comments;
+}

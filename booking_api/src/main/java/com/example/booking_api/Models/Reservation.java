@@ -23,11 +23,28 @@ public class Reservation implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("reservations")
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "property_id", referencedColumnName = "id")
+    @JsonIgnoreProperties({"reservations"})
     private Property property;
+
+    @Column(name = "firt_name", nullable = false)
+    private String firt_name;
+
+    @Column(name = "last_name", nullable = false)
+    private String last_name;
+
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @Column(name = "nationality", nullable = false)
+    private String nationality;
+
+    @Column(name = "phone", nullable = false)
+    private String phone;
 
     @Column(name = "quantity", nullable = false)
     private int quantity;
@@ -55,4 +72,18 @@ public class Reservation implements Serializable {
     @OneToOne(mappedBy = "reservation", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("reservation")
     private ReservationDetail reservationDetail;
+
+    public Reservation(User user, Property property, String firt_name, String last_name, String email, String nationality, String phone, int quantity, boolean status, Date checkInDate, Date checkOutDate) {
+        this.user = user;
+        this.property = property;
+        this.firt_name = firt_name;
+        this.last_name = last_name;
+        this.email = email;
+        this.nationality = nationality;
+        this.phone = phone;
+        this.quantity = quantity;
+        this.status = status;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+    }
 }

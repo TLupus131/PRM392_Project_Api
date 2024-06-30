@@ -12,21 +12,51 @@ import java.util.List;
 @Repository
 public interface PropertyRepository extends JpaRepository<Property, Integer> {
 
-    @Query(value = "SELECT p.*" +
-            "FROM property p\n" +
-            "JOIN region r ON r.id = p.region_id\n" +
-            "LEFT JOIN reservation res ON res.property_id = p.id\n" +
-            "WHERE r.name = :region\n" +
-            "  AND p.adult_capacity >= :adult\n" +
-            "  AND p.children_capacity >= :children\n" +
-            "  AND p.pets_allowed = :petAllow" +
-            "  AND p.quantity - (\n" +
-            "    SELECT COALESCE(SUM(r.quantity), 0) \n" +
-            "    FROM reservation r \n" +
-            "    WHERE r.property_id = p.id \n" +
-            "      AND (r.check_in_date BETWEEN :checkInDate AND :checkOutDate\n" +
-            "      OR r.check_out_date BETWEEN :checkInDate AND :checkOutDate)\n" +
-            "  ) >= :room\n" +
-            "GROUP BY p.id;", nativeQuery = true)
-    List<Property> getPropertiesByRequest(@Param("region") String region,@Param("checkInDate") Date checkInDate,@Param("checkOutDate") Date checkOutDate,@Param("room") int room,@Param("adult") int adult,@Param("children") int children, @Param("petAllow") boolean petAllow);
+    @Query(value = "SELECT p.* \n" +
+            "FROM property p \n" +
+            "JOIN region r ON r.id = p.region_id \n" +
+            "WHERE r.name = :location \n" +
+            "  AND p.adult_capacity >= :adult \n" +
+            "  AND p.children_capacity >= :children \n" +
+            "  AND (:petAllow = false OR p.pets_allowed = true) \n" +
+            "  AND :room <= (\n" +
+            "    SELECT p.quantity - COALESCE(SUM(res.quantity), 0) \n" +
+            "    FROM reservation res \n" +
+            "    WHERE res.property_id = p.id \n" +
+            "    AND (:checkInDate BETWEEN res.check_in_date AND res.check_out_date " +
+            "         OR :checkOutDate BETWEEN res.check_in_date AND res.check_out_date " +
+            "         OR res.check_in_date BETWEEN :checkInDate AND :checkOutDate " +
+            "         OR res.check_out_date BETWEEN :checkInDate AND :checkOutDate) " +
+            "  );", nativeQuery = true)
+    List<Property> getPropertiesByRequest(@Param("location") String location,
+                                          @Param("checkInDate") Date checkInDate,
+                                          @Param("checkOutDate") Date checkOutDate,
+                                          @Param("room") int room,
+                                          @Param("adult") int adult,
+                                          @Param("children") int children,
+                                          @Param("petAllow") boolean petAllow);
+
+    @Query(value = "SELECT p.* \n" +
+            "FROM property p \n" +
+            "JOIN region r ON r.id = p.region_id \n" +
+            "WHERE p.id = :propertyId \n" +
+            "  AND p.adult_capacity >= :adult \n" +
+            "  AND p.children_capacity >= :children \n" +
+            "  AND (:petAllow = false OR p.pets_allowed = true) \n" +
+            "  AND :room <= (\n" +
+            "    SELECT p.quantity - COALESCE(SUM(res.quantity), 0) \n" +
+            "    FROM reservation res \n" +
+            "    WHERE res.property_id = p.id \n" +
+            "    AND (:checkInDate BETWEEN res.check_in_date AND res.check_out_date " +
+            "         OR :checkOutDate BETWEEN res.check_in_date AND res.check_out_date " +
+            "         OR res.check_in_date BETWEEN :checkInDate AND :checkOutDate " +
+            "         OR res.check_out_date BETWEEN :checkInDate AND :checkOutDate) " +
+            "  );", nativeQuery = true)
+    Property verifyProperty(@Param("propertyId") int propertyId,
+                                          @Param("checkInDate") Date checkInDate,
+                                          @Param("checkOutDate") Date checkOutDate,
+                                          @Param("room") int room,
+                                          @Param("adult") int adult,
+                                          @Param("children") int children,
+                                          @Param("petAllow") boolean petAllow);
 }

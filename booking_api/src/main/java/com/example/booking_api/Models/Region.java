@@ -27,7 +27,18 @@ public class Region implements Serializable {
     @Column(name = "description", nullable = false)
     private String description;
 
+    @Column(name = "latitude")
+    private String latitude;
+
+    @Column(name = "longitude")
+    private String longitude;
+
     @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("region")
     private List<Property> properties;
+
+    public Region(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 }

@@ -79,4 +79,8 @@ public class Property implements Serializable {
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("property")
     private List<Reservation> reservations;
+
+    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("property")
+    private List<Comment> comments;
 }
