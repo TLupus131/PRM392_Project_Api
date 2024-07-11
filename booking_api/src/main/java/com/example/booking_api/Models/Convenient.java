@@ -24,6 +24,9 @@ public class Convenient implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "icon", nullable = false)
+    private String icon;
+
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
             name = "property_convenient",

@@ -12,8 +12,8 @@ public class ReservationDetailService {
     @Autowired
     private ReservationDetailRepository reservationDetailRepository;
 
-    public void add(double price, Reservation reservation) {
-        ReservationDetail reservationDetail = new ReservationDetail(price, reservation);
+    public void add(double price, Reservation reservation, int adults, int children, int days) {
+        ReservationDetail reservationDetail = new ReservationDetail(price, reservation, adults, children, days);
         reservationDetailRepository.save(reservationDetail);
     }
 }

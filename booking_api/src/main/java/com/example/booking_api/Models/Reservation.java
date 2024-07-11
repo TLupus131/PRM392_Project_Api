@@ -31,8 +31,8 @@ public class Reservation implements Serializable {
     @JsonIgnoreProperties({"reservations"})
     private Property property;
 
-    @Column(name = "firt_name", nullable = false)
-    private String firt_name;
+    @Column(name = "first_name", nullable = false)
+    private String first_name;
 
     @Column(name = "last_name", nullable = false)
     private String last_name;
@@ -73,10 +73,10 @@ public class Reservation implements Serializable {
     @JsonIgnoreProperties("reservation")
     private ReservationDetail reservationDetail;
 
-    public Reservation(User user, Property property, String firt_name, String last_name, String email, String nationality, String phone, int quantity, boolean status, Date checkInDate, Date checkOutDate) {
+    public Reservation(User user, Property property, String first_name, String last_name, String email, String nationality, String phone, int quantity, boolean status, Date checkInDate, Date checkOutDate) {
         this.user = user;
         this.property = property;
-        this.firt_name = firt_name;
+        this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
         this.nationality = nationality;

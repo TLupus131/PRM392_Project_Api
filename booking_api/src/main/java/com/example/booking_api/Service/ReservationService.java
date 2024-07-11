@@ -32,7 +32,7 @@ public class ReservationService {
     @Autowired
     private ReservationDetailService reservationDetailService;
 
-    public Reservation makeReservation(int userId, int propertyId, String firstname, String lastname, String email, String nationality, String phone, int quantity, Date checkInDate, Date checkOutDate, Double price) throws Exception {
+    public Reservation makeReservation(int userId, int propertyId, String firstname, String lastname, String email, String nationality, String phone, int quantity, Date checkInDate, Date checkOutDate, Double price, int adults, int children, int days) throws Exception {
         Optional<User> userOptional = userRepository.findById(userId);
         Optional<Property> propertyOptional = propertyRepository.findById(propertyId);
 
@@ -52,7 +52,7 @@ public class ReservationService {
                 nationality, phone, quantity, true, checkInDate, checkOutDate
         );
         reservationRepository.save(reservation);
-        reservationDetailService.add(price, reservation);
+        reservationDetailService.add(price, reservation, adults, children, days);
         return reservation;
     }
 

@@ -24,6 +24,9 @@ public class PropertyType implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "image")
+    private String image;
+
     @OneToMany(mappedBy = "propertyType", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("propertyType")
     private List<Property> properties;

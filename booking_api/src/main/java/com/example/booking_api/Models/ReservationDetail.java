@@ -23,13 +23,25 @@ public class ReservationDetail implements Serializable {
     @Column(name = "total_price", nullable = false)
     private Double totalPrice;
 
+    @Column(name = "adults", nullable = false)
+    private Integer adults;
+
+    @Column(name = "children", nullable = false)
+    private Integer children;
+
+    @Column(name = "days", nullable = false)
+    private Integer days;
+
     @OneToOne
     @JoinColumn(name = "reservation_id", referencedColumnName = "id")
     @JsonIgnoreProperties("reservationDetail")
     private Reservation reservation;
 
-    public ReservationDetail(Double totalPrice, Reservation reservation) {
+    public ReservationDetail(Double totalPrice, Reservation reservation, int adults, int children, int days) {
         this.totalPrice = totalPrice;
         this.reservation = reservation;
+        this.adults = adults;
+        this.children = children;
+        this.days = days;
     }
 }

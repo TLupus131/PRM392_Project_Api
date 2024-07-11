@@ -33,6 +33,9 @@ public class Region implements Serializable {
     @Column(name = "longitude")
     private String longitude;
 
+    @Column(name = "image")
+    private String image;
+
     @OneToMany(mappedBy = "region", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("region")
     private List<Property> properties;

@@ -24,23 +24,12 @@ public class ReservationResponse {
     private Date checkInDate;
     private Date checkOutDate;
     private Double finalPrice;
+    private int adults;
+    private int children;
+    private int days;
     private String message;
 
-    public ReservationResponse(int userId, int propertyId, String firstName, String lastName, String email, String nationality, String phone, int quantity, Date checkInDate, Date checkOutDate, Double finalPrice) {
-        this.userId = userId;
-        this.propertyId = propertyId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.nationality = nationality;
-        this.phone = phone;
-        this.quantity = quantity;
-        this.checkInDate = checkInDate;
-        this.checkOutDate = checkOutDate;
-        this.finalPrice = finalPrice;
-    }
-
-    public ReservationResponse(Integer id, int userId, int propertyId, String firstName, String lastName, String email, String nationality, String phone, int quantity, Date checkInDate, Date checkOutDate, Double finalPrice) {
+    public ReservationResponse(Integer id, int userId, int propertyId, String firstName, String lastName, String email, String nationality, String phone, int quantity, Date checkInDate, Date checkOutDate, Double finalPrice, int adults, int children, int days) {
         this.id = id;
         this.userId = userId;
         this.propertyId = propertyId;
@@ -53,5 +42,8 @@ public class ReservationResponse {
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.finalPrice = finalPrice;
+        this.adults = adults;
+        this.children = children;
+        this.days = days;
     }
 }

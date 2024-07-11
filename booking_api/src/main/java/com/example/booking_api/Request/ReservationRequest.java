@@ -27,4 +27,7 @@ public class ReservationRequest {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date checkOutDate;
     private Double finalPrice;
+    private int adults;
+    private int children;
+    private int days;
 }

@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -29,6 +30,26 @@ public class UserController {
             UserResponse response = new UserResponse(request.getId(), request.getEmail(), request.getPassword(), request.isGender());
             response.setMessage("Error registed user: " + e.getMessage());
             return ResponseEntity.status(500).body(response);
+        }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<String> update(
+            @RequestParam("id") int id,
+            @RequestParam("name") String name,
+            @RequestParam("email") String email,
+            @RequestParam("password") String password,
+            @RequestParam("address") String address,
+            @RequestParam("phone") String phone,
+            @RequestParam("nationality") String nationality,
+            @RequestParam("dob") String dob,
+            @RequestParam("gender") String gender
+            ) {
+        try {
+            userService.updateUser(id, name, email, password, nationality, address, gender, dob, phone);
+            return ResponseEntity.ok("User updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating user: " + e.getMessage());
         }
     }
 

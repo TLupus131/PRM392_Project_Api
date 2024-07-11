@@ -41,12 +41,12 @@ public class ReservationController {
     @PostMapping("/add")
     public ResponseEntity<ReservationResponse> add(@RequestBody ReservationRequest request) {
         try {
-            Reservation reservation = reservationService.makeReservation(request.getUserId(), request.getPropertyId(), request.getFirstName(), request.getLastName(), request.getEmail(), request.getNationality(), request.getPhone(), request.getQuantity(), request.getCheckInDate(), request.getCheckOutDate(), request.getFinalPrice());
-            ReservationResponse response = new ReservationResponse(reservation.getId(), request.getUserId(), request.getPropertyId(), request.getFirstName(), request.getLastName(), request.getEmail(), request.getNationality(), request.getPhone(), request.getQuantity(), request.getCheckInDate(), request.getCheckOutDate(), request.getFinalPrice());
+            Reservation reservation = reservationService.makeReservation(request.getUserId(), request.getPropertyId(), request.getFirstName(), request.getLastName(), request.getEmail(), request.getNationality(), request.getPhone(), request.getQuantity(), request.getCheckInDate(), request.getCheckOutDate(), request.getFinalPrice(), request.getAdults(), request.getChildren(), request.getDays());
+            ReservationResponse response = new ReservationResponse(reservation.getId(), request.getUserId(), request.getPropertyId(), request.getFirstName(), request.getLastName(), request.getEmail(), request.getNationality(), request.getPhone(), request.getQuantity(), request.getCheckInDate(), request.getCheckOutDate(), request.getFinalPrice(), request.getAdults(), request.getChildren(), request.getDays());
             response.setMessage("Added reservation successfully");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            ReservationResponse response = new ReservationResponse(null, request.getUserId(), request.getPropertyId(), request.getFirstName(), request.getLastName(), request.getEmail(), request.getNationality(), request.getPhone(), request.getQuantity(), request.getCheckInDate(), request.getCheckOutDate(), request.getFinalPrice());
+            ReservationResponse response = new ReservationResponse(null, request.getUserId(), request.getPropertyId(), request.getFirstName(), request.getLastName(), request.getEmail(), request.getNationality(), request.getPhone(), request.getQuantity(), request.getCheckInDate(), request.getCheckOutDate(), request.getFinalPrice(), request.getAdults(), request.getChildren(), request.getDays());
             response.setMessage("Error adding reservation: " + e.getMessage());
             return ResponseEntity.status(500).body(response);
         }

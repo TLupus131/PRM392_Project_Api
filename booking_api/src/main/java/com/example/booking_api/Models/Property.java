@@ -68,6 +68,11 @@ public class Property implements Serializable {
     @JoinColumn(name = "property_type_id", referencedColumnName = "id")
     private PropertyType propertyType;
 
+    @ManyToOne
+    @JsonIgnoreProperties("properties")
+    @JoinColumn(name = "property_user_id", referencedColumnName = "id", nullable = false)
+    private User user;
+
     @JsonIgnore
     @ManyToMany(mappedBy = "properties")
     private List<Convenient> convenients;
